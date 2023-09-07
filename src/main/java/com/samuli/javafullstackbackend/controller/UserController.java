@@ -1,5 +1,6 @@
 package com.samuli.javafullstackbackend.controller;
 
+import com.samuli.javafullstackbackend.exception.UserNotFoundException;
 import com.samuli.javafullstackbackend.model.User;
 import com.samuli.javafullstackbackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,11 @@ public class UserController {
     @GetMapping("/users")
     List<User> getAllUsers(){
         return userRepository.findAll();
+    }
+
+    @GetMapping("/user/{id}")
+    User getUserById(@PathVariable Long id){
+        return userRepository.findById(id)
+                .orElseThrow(()->new UserNotFoundException(id));
     }
 }
