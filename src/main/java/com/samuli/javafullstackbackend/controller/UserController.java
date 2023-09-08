@@ -1,5 +1,6 @@
 package com.samuli.javafullstackbackend.controller;
 
+import com.samuli.javafullstackbackend.exception.UserAlreadyExistsException;
 import com.samuli.javafullstackbackend.exception.UserNotFoundException;
 import com.samuli.javafullstackbackend.model.User;
 import com.samuli.javafullstackbackend.repository.UserRepository;
@@ -17,6 +18,9 @@ public class UserController {
 
     @PostMapping("/user")
     User newUser(@RequestBody User newUser){
+        if(userRepository.existsByEmail(newUser.getEmail())){
+            throw new UserAlreadyExistsException();
+        }
         return userRepository.save(newUser);
     }
 

@@ -1,5 +1,6 @@
 package com.samuli.javafullstackbackend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,6 +13,7 @@ public class User {
     private Long id;
     private String username;
     private String name;
+    @Column(unique = true)
     private String email;
 
     public Long getId() {
